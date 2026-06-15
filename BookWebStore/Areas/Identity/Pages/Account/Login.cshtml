@@ -1,0 +1,97 @@
+﻿@page
+@model LoginModel
+
+<div class="container" style="max-width: 780px;">
+    <div class="card shadow border-0 mt-4 sw-card">
+        <div class="card-header sw-header ml-0 py-4">
+            <div class="row">
+                <div class="col-12 text-center">
+                    <h2 class="py-2 sw-header-text m-0" style="font-weight: 800; letter-spacing: 4px; text-transform: uppercase;">Log In</h2>
+                </div>
+            </div>
+        </div>
+        <div class="card-body p-5">
+            <div class="row">
+                <div class="col-md-12">
+                    <section>
+                        <form id="account" method="post">
+                            <h3 class="border-bottom pb-3 mb-4 sw-title-secondary text-center" style="font-size: 1.2rem; letter-spacing: 1px;">Access the mainframe.</h3>
+                            <div asp-validation-summary="ModelOnly" class="text-danger fw-bold" role="alert"></div>
+
+                            <div class="form-floating mb-4">
+                                <input asp-for="Input.Email" class="form-control sw-input" autocomplete="username" aria-required="true" placeholder="name@example.com" />
+                                <label asp-for="Input.Email" class="form-label">Email</label>
+                                <span asp-validation-for="Input.Email" class="text-danger"></span>
+                            </div>
+
+                            <div class="form-floating mb-4">
+                                <input asp-for="Input.Password" class="form-control sw-input" autocomplete="current-password" aria-required="true" placeholder="password" />
+                                <label asp-for="Input.Password" class="form-label">Password</label>
+                                <span asp-validation-for="Input.Password" class="text-danger"></span>
+                            </div>
+
+                            <div class="checkbox mb-4">
+                                <label asp-for="Input.RememberMe" class="form-label d-flex align-items-center" style="cursor: pointer;">
+                                    <input class="form-check-input me-2" asp-for="Input.RememberMe" style="width: 1.2em; height: 1.2em;" />
+                                    @Html.DisplayNameFor(m => m.Input.RememberMe)
+                                </label>
+                            </div>
+
+                            <div>
+                                <button id="login-submit" type="submit" class="w-100 btn btn-lg sw-btn py-3">AUTHENTICATE</button>
+                            </div>
+
+                            <div class="d-flex justify-content-between pt-4 flex-wrap gap-2 text-center">
+                                <p class="w-100 m-0 text-md-start w-md-auto">
+                                    <a id="forgot-password" asp-page="./ForgotPassword" class="sw-link">Forgot your password?</a>
+                                </p>
+                                <p class="w-100 m-0 text-md-center w-md-auto">
+                                    <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" class="sw-link">Register as a new user</a>
+                                </p>
+                                <p class="w-100 m-0 text-md-end w-md-auto">
+                                    <a id="resend-confirmation" asp-page="./ResendEmailConfirmation" class="sw-link">Resend email confirmation</a>
+                                </p>
+                            </div>
+                        </form>
+                    </section>
+                </div>
+
+                <div class="col-md-12 p-3 text-center mt-2">
+                    <section>
+                        <p class="sw-divider d-flex pt-3 mb-4">or</p>
+                        @{
+                            if ((Model.ExternalLogins?.Count ?? 0) == 0)
+                            {
+                                <div>
+                                    <p style="color: #888; font-size: 0.9rem;">
+                                        There are no external authentication services configured. See this <a href="https://go.microsoft.com/fwlink/?LinkID=532715" class="sw-link">
+                                        article
+                                        about setting up this ASP.NET application to support logging in via external services
+                                    </a>.
+                                </p>
+                            </div>
+                        }
+                            else
+                        {
+                            <form id="external-account" asp-page="./ExternalLogin" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="form-horizontal">
+                                <div class="d-flex justify-content-center gap-3 flex-wrap">
+                                    @foreach (var provider in Model.ExternalLogins!)
+                                    {
+                                        <button type="submit" class="btn sw-btn px-4 py-2" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
+                                            <i class="bi bi-shield-lock-fill me-1"></i> @provider.DisplayName
+                                        </button>
+                                    }
+                                </div>
+                            </form>
+                        }
+                    }
+                </section>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

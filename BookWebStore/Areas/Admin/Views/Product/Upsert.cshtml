@@ -1,0 +1,146 @@
+﻿@using BookStore.Models
+@using Models.BookWebStore
+@using Models.BookWebStore.ViewModels
+@model ProductVM
+
+<div class="card shadow border-0 mt-4 sw-card">
+    <div class="card-header sw-header ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="sw-header-text py-2 text-uppercase mb-0" style="letter-spacing: 2px;">@(Model.Product.Id == 0 ? "Create Product" : "Edit Product")</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4 p-md-5">
+        <form method="post" class="row" enctype="multipart/form-data">
+            <input asp-for="Product.Id" hidden />
+            <input asp-for="Product.ImgUrl" hidden />
+
+            <div class="row">
+                <div class="col-12 col-lg-10 mb-4">
+                    <div class="p-4 rounded" style="border: 1px solid rgba(46, 165, 255, 0.2); background: rgba(255, 255, 255, 0.02);">
+                        @* <div asp-validation-summary="ModelOnly"></div> *@
+
+                        <div class="form-floating py-2 col-12 mb-2">
+                            <input asp-for="Product.Title" class="form-control sw-input" placeholder="Title" />
+                            <label asp-for="Product.Title" class="ms-2">Title</label>
+                            <span asp-validation-for="Product.Title" class="text-danger fw-bold mt-1 d-block"></span>
+                        </div>
+
+                        <div class="py-2 col-12 mb-3">
+                            <label asp-for="Product.Description" class="ms-2 text-light opacity-75 mb-2 fw-bold"></label>
+                            <textarea asp-for="Product.Description" id="default-editor" class="form-control sw-input"></textarea>
+                        </div>
+
+                        <div class="form-floating py-2 col-12 mb-2">
+                            <input asp-for="Product.ISBN" class="form-control sw-input" placeholder="ISBN" />
+                            <label asp-for="Product.ISBN" class="ms-2">ISBN</label>
+                            <span asp-validation-for="Product.ISBN" class="text-danger fw-bold mt-1 d-block"></span>
+                        </div>
+
+                        <div class="form-floating py-2 col-12 mb-2">
+                            <input asp-for="Product.Author" class="form-control sw-input" placeholder="Author" />
+                            <label asp-for="Product.Author" class="ms-2">Author</label>
+                            <span asp-validation-for="Product.Author" class="text-danger fw-bold mt-1 d-block"></span>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-floating py-2 mb-2">
+                                <input asp-for="Product.ListPrice" class="form-control sw-input" placeholder="List Price" />
+                                <label asp-for="Product.ListPrice" class="ms-3">List Price</label>
+                                <span asp-validation-for="Product.ListPrice" class="text-danger fw-bold mt-1 d-block"></span>
+                            </div>
+                            <div class="col-md-6 form-floating py-2 mb-2">
+                                <input asp-for="Product.Price" class="form-control sw-input" placeholder="Price" />
+                                <label asp-for="Product.Price" class="ms-3">Price</label>
+                                <span asp-validation-for="Product.Price" class="text-danger fw-bold mt-1 d-block"></span>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 form-floating py-2 mb-2">
+                                <input asp-for="Product.Price50" class="form-control sw-input" placeholder="Price for 50+" />
+                                <label asp-for="Product.Price50" class="ms-3">Price 50+</label>
+                                <span asp-validation-for="Product.Price50" class="text-danger fw-bold mt-1 d-block"></span>
+                            </div>
+                            <div class="col-md-6 form-floating py-2 mb-2">
+                                <input asp-for="Product.Price100" class="form-control sw-input" placeholder="Price for 100+" />
+                                <label asp-for="Product.Price100" class="ms-3">Price 100+</label>
+                                <span asp-validation-for="Product.Price100" class="text-danger fw-bold mt-1 d-block"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-floating py-2 col-12 mb-2">
+                            <input type="file" name="file" class="form-control sw-input" placeholder="Upload Image" style="padding-top: 2rem;" />
+                            <label asp-for="Product.ImgUrl" class="ms-2">Upload Image</label>
+                        </div>
+
+                        <div class="form-floating py-2 col-12 mb-4">
+                            <select asp-for="@Model.Product.CategoryId" asp-items="@Model.CategoryList" class="form-select sw-input">
+                                <option disabled selected class="text-muted">-- Select a Category --</option>
+                            </select>
+                            <label asp-for="Product.CategoryId" class="ms-2">Category</label>
+                            <span asp-validation-for="Product.CategoryId" class="text-danger fw-bold mt-1 d-block"></span>
+                        </div>
+
+                        <div class="row pt-2">
+                            <div class="col-6 col-md-4">
+                                @if (Model.Product.Id == 0)
+                                {
+                                    <button type="submit" class="btn sw-btn w-100 py-2">
+                                        <i class="bi bi-plus-circle me-1"></i> CREATE
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button type="submit" class="btn sw-btn w-100 py-2">
+                                        <i class="bi bi-save me-1"></i> UPDATE
+                                    </button>
+                                }
+                            </div>
+                            <div class="col-6 col-md-4 mb-3">
+                                <a asp-controller="Product" asp-action="Index" class="btn w-100 py-2 text-uppercase fw-bold" style="background: transparent; border: 2px solid #888; color: #ccc; transition: all 0.3s ease; letter-spacing: 1px;">
+                                    <i class="bi bi-arrow-left me-1"></i> Back to List
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-2 text-center text-lg-start">
+                    <p class="text-light opacity-75 mb-2 fw-bold d-lg-none">Image Preview</p>
+                    <img src="@Model.Product.ImgUrl" class="shadow-lg" width="100%" style="border-radius: 8px; border: 1px solid rgba(46, 165, 255, 0.5); object-fit: cover;" alt="Product Image" />
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.tiny.cloud/1/6xxekwlhbk0mhf9cihk6beenjcyfb1891cdg3cryh0491wmx/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+
+    <script>
+        // Добавяме и малко тъмен скин на самия TinyMCE едитор, за да не вади очите
+        tinymce.init({
+        selector: 'textarea',
+        plugins: 'anchor autolink charmap codesample emoticons lists table visualblocks wordcount',
+        toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough| align lineheight | numlist bullist indent outdent',
+        skin: 'oxide-dark',
+        content_css: 'dark'
+        });
+
+        // Визуализация на снимката при избор на файл
+        document.querySelector('input[type="file"]').addEventListener('change', function(e) {
+        const file = e.target.files[0];
+        if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+        document.querySelector('img').src = e.target.result;
+        };
+        reader.readAsDataURL(file);
+        }
+        });
+    </script>
+
+    <partial name="_ValidationScriptsPartial" />
+}

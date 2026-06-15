@@ -1,0 +1,41 @@
+﻿@using Models.BookWebStore
+@model IEnumerable<Product>
+
+</style>
+
+<div class="row pb-3 mt-4">
+    @foreach (var product in Model)
+    {
+        <div class="col-lg-3 col-md-4 col-sm-6 mb-4">
+            <div class="sw-holo-card h-100">
+                <img src="@product.ImgUrl" class="sw-book-img" alt="@product.Title" />
+
+                <div class="sw-overlay">
+                    <div class="sw-title-area">
+                        <h5 class="text-uppercase sw-book-title">@product.Title</h5>
+                        <p class="sw-book-author mb-0">@product.Author</p>
+                    </div>
+
+                    <div class="sw-reveal-area">
+                        <div class="sw-laser-line"></div>
+
+                        <div class="d-flex justify-content-between align-items-center mb-1">
+                            <span class="text-light opacity-75" style="font-size: 0.85rem;">List Price:</span>
+                            <span class="text-danger text-decoration-line-through fw-bold" style="font-size: 0.9rem;">@product.ListPrice.ToString("c")</span>
+                        </div>
+                        <div class="d-flex justify-content-between align-items-center mb-4">
+                            <span class="text-white fw-bold" style="font-size: 0.85rem; text-transform: uppercase;">Your Price:</span>
+                            <span class="fw-bolder" style="color: #2EA5FF; font-size: 1.4rem; text-shadow: 0 0 15px rgba(46, 165, 255, 0.8);">
+                                @product.Price100.ToString("c")
+                            </span>
+                        </div>
+
+                        <a asp-action="Details" asp-route-id="@product.Id" class="btn sw-btn w-100 py-2 fw-bold text-uppercase d-flex justify-content-center align-items-center" style="letter-spacing: 2px;">
+                            <i class="bi bi-box-arrow-in-right me-2"></i> Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

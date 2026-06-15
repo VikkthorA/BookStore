@@ -1,0 +1,37 @@
+﻿<div class="card shadow border-0 mt-4 sw-card">
+    <div class="card-header sw-header ml-0 py-3">
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="sw-header-text py-2 text-uppercase mb-0" style="letter-spacing: 2px;">Company List</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+        <div class="row pb-3">
+            <div class="col-6">
+            </div>
+            <div class="col-6 text-end">
+                <a asp-controller="Company" asp-action="Upsert" class="btn sw-btn d-inline-flex align-items-center">
+                    <i class="bi bi-plus-circle me-2"></i> CREATE NEW COMPANY
+                </a>
+            </div>
+        </div>
+
+        <table id="tblData" class="table table-dark table-hover text-light align-middle" style="width:100%; --bs-table-bg: transparent; --bs-table-border-color: rgba(46, 165, 255, 0.2);">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>City</th>
+                    <th>State</th>
+                    <th>Phone Number</th>
+                    <th></th>
+                </tr>
+            </thead>
+        </table>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/company.js"></script>
+}

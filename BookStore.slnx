@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="BookWebStore.DataAccess/DataAccess.BookWebStore.csproj" Id="8252cd97-da0d-4282-819d-d9ebe94c6ca5" />
+  <Project Path="BookWebStore.Models/Models.BookWebStore.csproj" Id="258f933c-bc18-45f9-bee7-17ee8e5e0d1d" />
+  <Project Path="BookWebStore.Utility/Utility.BookWebStore.csproj" Id="be926b73-7ddf-402f-bbfb-eb8808bfaa6f" />
+  <Project Path="BookWebStore/BookWebStore.csproj" />
+</Solution>

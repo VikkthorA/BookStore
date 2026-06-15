@@ -10,3 +10,8 @@ Admin Access (Testing & Review)
 
 * **Email:** `admin@dotnetmastery.com`
 * **Password:** `Admin123*`
+
+
+### 🖼️ Note on Products & Images
+Since the application generates a local database upon the first run, the product catalog will initially be empty and no product images will be visible. 
+To test the full user experience (including the shopping cart and homepage UI), please log in with the **Admin credentials** provided above, navigate to the Content Management panel, and create a few test products by uploading your own sample images.
